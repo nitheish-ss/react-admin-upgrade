@@ -4,7 +4,6 @@ import merge from 'deepmerge';
 import { defaultSettings } from './default-settings';
 import ResourceLookup from './resourceLookup';
 import {getConf} from '../Config'
-import { number } from 'prop-types';
 
 const conf : { [ key: string] : any } = getConf();
 const duration = 2000;

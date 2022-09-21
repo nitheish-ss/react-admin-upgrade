@@ -75,7 +75,6 @@ const onMenuClick = (evt) => {
 export const Menu = (props) => {
     const resourcesDefinitions = useResourceDefinitions();
     const resources = Object.keys(resourcesDefinitions).map(name => resourcesDefinitions[name]);    
-    console.log(resources)
     const open = true;
     return (
         <RAMenu {...props}>

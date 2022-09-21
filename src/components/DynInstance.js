@@ -130,10 +130,11 @@ const ShowInstance = ({
   attributes,
   tab_groups,
   resource_name,
-  id,
-  basePath,
 }) => {
+  const record = useRecordContext()
   const classes = useStyles();
+  const id = record?.id;
+  const basePath = `/${resource_name}`
   const title = (
     <Typography variant="h5" component="h5" className={classes.instance_title}>
       {resource_name}
@@ -212,7 +213,6 @@ const DynRelationshipOne = (resource_name, id, relationship) => {
         setLoading(false);
       });
   }, [data]);
-
   if (!rel_data) {
     tab_content = loading ? (
       <Loading key={relationship.name} />
@@ -312,10 +312,8 @@ const DynRelationshipMany = (resource_name, id, relationship, path) => {
 
   const fields = attr_fields(attributes);
   const col_nr = target_resource.max_list_columns;
-  console.log(col_nr,"numberofcol")
   const fk = relationship.fks.join("_");
   const label = relationship.label || relationship.name;
-console.log("fieldsfromf",fields)
   return (
     <Tab label={label} key={relationship.name} className={classes.many_tab}>
       <ReferenceManyField
@@ -413,16 +411,14 @@ const ShowActions = ({ basePath, data, resource }) => {
   );
 };
 
-export const gen_DynResourceShow = (resource_conf) => (props) => {
+export const gen_DynResourceShow = (resource_conf) => {
   const attributes = resource_conf.attributes;
   const tab_groups = resource_conf.tab_groups;
   let show = (
     <ShowInstance
       attributes={attributes}
       tab_groups={tab_groups}
-      resource_name={props.resource}
-      id={props.id}
-      {...props}
+      resource_name={resource_conf.name}
     />
   );
   if (resource_conf.components?.show) {
@@ -434,7 +430,6 @@ export const gen_DynResourceShow = (resource_conf) => (props) => {
     <Show
       title={<ResourceTitle resource={resource_conf} />}
       actions={<ShowActions resource={resource_conf} />}
-      {...props}
     >
       {show}
     </Show>
