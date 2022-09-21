@@ -1,16 +1,11 @@
-import React from "react";
-import { useState, useMemo } from "react";
-import { Resource } from "react-admin";
+import {useNotify, useRedirect } from "react-admin";
 import {Create } from "react-admin";
 import { Toolbar, SaveButton } from "react-admin";
-import { useConf } from "./Config.js";
 import "./style/DynStyle.css";
 import { makeStyles } from "@material-ui/core/styles";
 import AttrForm from "./components/AttrForm.js";
-import gen_DynResourceList from "./components/DynList";
-import { gen_DynResourceShow } from "./components/DynInstance";
 import get_Component from "./get_Component";
-import { gen_DynResourceEdit } from "./components/DynResourceEdit";
+import { useFormContext } from 'react-hook-form';
 //import {ExtComp} from './components/ExtComp';
 
 const useStyles = makeStyles({
@@ -23,6 +18,8 @@ const useStyles = makeStyles({
 
 export const gen_DynResourceCreate = (resource) => (props) => {
   const classes = useStyles();
+  const notify = useNotify()
+  const redirect = useRedirect()
   const attributes = resource.attributes;
 
   if (resource.create) {
@@ -34,23 +31,41 @@ export const gen_DynResourceCreate = (resource) => (props) => {
     return (
       <Toolbar {...props}>
         <SaveButton
+          type="button"
           label="save"
-          redirect={props.basePath}
           submitOnEnter={true}
+          mutationOptions={{
+            onSuccess: () => {
+                notify('Element created');
+                redirect(`/${resource.name}`)
+              }
+            }}
         />
         <SaveButton
+          type="button"
           className={classes.save_button}
           label="save and add another"
-          redirect={false}
           submitOnEnter={false}
           variant="outlined"
+          mutationOptions={{
+            onSuccess: () => {
+                notify('Element created');
+                redirect(window.location.href)
+              }
+            }}
         />
         <SaveButton
+          type="button"
           className={classes.save_button}
           label="save and show"
-          redirect="show"
           submitOnEnter={false}
           variant="outlined"
+          mutationOptions={{
+            onSuccess: (data) => {
+                notify('Element created');
+                redirect(`/${resource.name}/${data.id}/show`)
+              }
+            }}
         />
       </Toolbar>
     );
@@ -63,51 +78,3 @@ export const gen_DynResourceCreate = (resource) => (props) => {
   );
 };
 
-// export const DynResource = (props) => {
-//   const conf = useConf();
-//   window.addEventListener("storage", () => window.location.reload());
-//   const [, updateState] = React.useState();
-//   const [resource_conf, setConf] = useState(conf.resources[props.name]);
-//   const List = useMemo(
-//     () => gen_DynResourceList(resource_conf),
-//     [resource_conf]
-//   );
-//   const Create = useMemo(
-//     () => gen_DynResourceCreate(resource_conf),
-//     [resource_conf]
-//   );
-//   const Edit = useMemo(
-//     () => gen_DynResourceEdit(resource_conf),
-//     [resource_conf]
-//   );
-//   const Show = useMemo(
-//     () => gen_DynResourceShow(resource_conf),
-//     [resource_conf]
-//   );
-//   let options = {};
-//   if (resource_conf.label && resource_conf.label != resource_conf.name) {
-//     //adding a label works, but causes a full rerender of the component which may not be desirable
-//     options = { label: resource_conf.label };
-//     return (
-//       <Resource
-//         key={props.name}
-//         list={List}
-//         edit={Edit}
-//         create={Create}
-//         show={Show}
-//         options={options}
-//         {...props}
-//       />
-//     );
-//   }
-//   return (
-//     <Resource
-//       key={props.name}
-//       list={List}
-//       edit={Edit}
-//       create={Create}
-//       show={Show}
-//       {...props}
-//     />
-//   );
-// };
