@@ -97,19 +97,6 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
   const handleCloseClick = () => {
     setShowDialog(false);
   };
-  const handleSubmit = async (values) => {
-    create(
-      { payload: { data: values } },
-      {
-        onSuccess: ({ data }) => {
-          setShowDialog(false);
-        },
-        onFailure: ({ error }) => {
-          notify(error.message, "error");
-        },
-      }
-    );
-  };
   const title = `Create ${resource_name}`;
   const classes = useStyles();
   const onSuccessShow = (data) => {
@@ -133,7 +120,6 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
           className={classes.save_button1}
           label="save"
           submitOnEnter={true}
-          onClick={()=>handleSubmit()}
           mutationOptions={{onSuccess: () => {
             handleCloseClick();
             refresh();
@@ -146,7 +132,6 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
           label="save and add another"
           submitOnEnter={false}
           variant="outlined"
-          onClick={()=>{handleSubmit()}}
           redirect={false}
           mutationOptions={{onSuccess:()=>{notify(`${resource_name} created successfully`);redirect()}}}
         />
@@ -154,7 +139,6 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
           type="button"
           className={classes.save_button}
           label="save and show"
-          onClick={()=>handleSubmit()}
           mutationOptions={{onSuccess:(data)=>{handleCloseClick();onSuccessShow(data)}}}
           submitOnEnter={false}
           variant="outlined"
