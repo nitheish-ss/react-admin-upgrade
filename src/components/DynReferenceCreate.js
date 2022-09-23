@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Create,
   FormWithRedirect,
   SimpleForm,
+  useGetManyReference,
   useNotify,
   useRedirect,
 } from "react-admin";
@@ -96,11 +97,24 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
   const handleCloseClick = () => {
     setShowDialog(false);
   };
+  const handleSubmit = async (values) => {
+    create(
+      { payload: { data: values } },
+      {
+        onSuccess: ({ data }) => {
+          setShowDialog(false);
+        },
+        onFailure: ({ error }) => {
+          notify(error.message, "error");
+        },
+      }
+    );
+  };
   const title = `Create ${resource_name}`;
   const classes = useStyles();
   const onSuccessShow = (data) => {
     notify(`${resource_name} created successfully`);
-    redirect(`/${resource_name}/${data.data.id}/show`);
+    redirect(`/${resource_name}/${data.id}/show`);
   };
   const Mytoolbar = (props) => {
     return (
@@ -115,28 +129,33 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
         </Button>
 
         <SaveButton
+          type="button"
           className={classes.save_button1}
           label="save"
-          redirect={path}
           submitOnEnter={true}
-          onSuccess={() => {
+          onClick={()=>handleSubmit()}
+          mutationOptions={{onSuccess: () => {
             handleCloseClick();
             refresh();
-          }}
+          }}}
+
         />
         <SaveButton
+          type="button"
           className={classes.save_button}
           label="save and add another"
-          redirect={false}
           submitOnEnter={false}
           variant="outlined"
-          onSuccess={()=>{refresh();notify(`${resource_name} created successfully`)}}
+          onClick={()=>{handleSubmit()}}
+          redirect={false}
+          mutationOptions={{onSuccess:()=>{notify(`${resource_name} created successfully`);redirect()}}}
         />
         <SaveButton
+          type="button"
           className={classes.save_button}
           label="save and show"
-          redirect={false}
-          onSuccess={onSuccessShow}
+          onClick={()=>handleSubmit()}
+          mutationOptions={{onSuccess:(data)=>{handleCloseClick();onSuccessShow(data)}}}
           submitOnEnter={false}
           variant="outlined"
         />
@@ -171,7 +190,7 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
       >
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>
-          <Create basePath={path} resource={resource_name}>
+          <Create  resource={resource_name}>
             <SimpleForm
               defaultValues={()=>initialValue()}
               toolbar={<Mytoolbar />}
