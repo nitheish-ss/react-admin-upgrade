@@ -107,23 +107,6 @@ function QuickCreateButton({ onChange, resource_name, cb_set_id, basePath }) {
     setShowDialog(false);
   };
 
-  const handleSubmit = async (values) => {
-    create(
-      { payload: { data: values } },
-      {
-        onSuccess: ({ data }) => {
-          setShowDialog(false);
-          // Update the form to target the newly created item
-          // Updating the ReferenceInput value will force it to reload the available posts
-          cb_set_id(data.id);
-          onChange();
-        },
-        onFailure: ({ error }) => {
-          notify(error.message, "error");
-        },
-      }
-    );
-  };
   const title = `Create ${resource.type}`;
   const classes = useStyles();
 
@@ -141,7 +124,6 @@ function QuickCreateButton({ onChange, resource_name, cb_set_id, basePath }) {
         <SaveButton
           type="button"
           label="save"
-          onClick={handleSubmit}
           submitOnEnter={true}
           mutationOptions={{onSuccess: () => {
             handleCloseClick();
