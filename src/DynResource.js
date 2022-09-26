@@ -28,6 +28,7 @@ export const gen_DynResourceCreate = (resource) => (props) => {
   }
 
   const Mytoolbar = (props) => {
+    const { reset } = useFormContext();
     return (
       <Toolbar {...props}>
         <SaveButton
@@ -50,7 +51,7 @@ export const gen_DynResourceCreate = (resource) => (props) => {
           mutationOptions={{
             onSuccess: () => {
                 notify('Element created');
-                redirect(window.location.href)
+                reset()
               }
             }}
         />

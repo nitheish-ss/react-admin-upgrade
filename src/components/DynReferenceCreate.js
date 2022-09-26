@@ -21,6 +21,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import { memo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Save } from "@mui/icons-material";
+import { useFormContext } from 'react-hook-form';
 
 const useStyles = makeStyles({
   edit_grid: { width: "100%" },
@@ -104,6 +105,7 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
     redirect(`/${resource_name}/${data.id}/show`);
   };
   const Mytoolbar = (props) => {
+    const { reset } = useFormContext();
     return (
       <Toolbar {...props}>
         <Button
@@ -133,7 +135,7 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
           submitOnEnter={false}
           variant="outlined"
           redirect={false}
-          mutationOptions={{onSuccess:()=>{notify(`${resource_name} created successfully`);redirect()}}}
+          mutationOptions={{onSuccess:()=>{notify(`${resource_name} created successfully`);reset()}}}
         />
         <SaveButton
           type="button"
