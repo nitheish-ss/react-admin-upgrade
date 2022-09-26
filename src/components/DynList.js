@@ -113,13 +113,12 @@ const gen_DynResourceList = (resource_conf) => (props) => {
             title="Edit"
             key={`${resource_conf.name}_edit`}
             label={""}
-            {...filtered_props}
           />
         ) : null}
         {resource_conf.delete !== false ? (
           <DeleteButton {...filtered_props} />
         ) : null}
-        <ShowButton title="Show" label="" {...filtered_props} />
+        <ShowButton title="Show" label="" />
       </span>
     );
     return buttons;
