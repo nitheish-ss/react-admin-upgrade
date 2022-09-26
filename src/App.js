@@ -11,6 +11,8 @@ import {
   useDataProvider,
   usePermissions,
 } from "react-admin";
+import englishMessages from 'ra-language-english';
+import polyglotI18nProvider from 'ra-i18n-polyglot';
 import { jsonapiClient } from "./rav4-jsonapi-client/ra-jsonapi-client";
 import { useConf } from "./Config";
 import ConfigurationUI, { LoadYaml } from "./components/ConfigurationUI";
@@ -24,6 +26,11 @@ import LoginPage from "./pages/LoginPage";
 import gen_DynResourceList from "./components/DynList";
 import { gen_DynResourceShow } from "./components/DynInstance";
 import { gen_DynResourceEdit } from "./components/DynResourceEdit";
+
+const messages = {
+  'en': englishMessages,
+};
+const i18nProvider = polyglotI18nProvider(locale => messages[locale]);
 
 const AsyncResources = () => {
   const [resources, setResources] = React.useState(false);
@@ -112,6 +119,8 @@ const App = () => {
       dataProvider={dataProvider}
       authProvider={authProvider}
       queryClient={queryClient}
+      locale="en"
+      i18nProvider={i18nProvider}
     >
       <AsyncResources />
     </AdminContext>
