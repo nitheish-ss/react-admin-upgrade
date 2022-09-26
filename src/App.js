@@ -110,7 +110,9 @@ const App = () => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: 5 * 60 * 1000, // 5 minutes
+        retry: false,
+        staleTime:300000, // 5 minutes
+        refetchOnWindowFocus: false
       },
     },
   });
