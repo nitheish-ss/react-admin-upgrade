@@ -53,6 +53,7 @@ const DynInput = ({
         onChange={(e) => {
           dynamicRender(attribute.name, e.target.value);
         }}
+        defaultValue={null}
         source={attribute.name}
         fullWidth
         multiline={attribute.multiline}
@@ -73,6 +74,7 @@ const DynInput = ({
           onChange={(e) => {
             dynamicRender(attribute.name, e.target.value);
           }}
+          defaultValue={null}
           source={attribute.name}
           fullWidth
           autoFocus={attribute.name === id.current}
@@ -87,6 +89,7 @@ const DynInput = ({
           onChange={(e) => {
             dynamicRender(attribute.name, e.target.value);
           }}
+          defaultValue={null}
           source={attribute.name}
           key={attribute.name}
           autoFocus={attribute.name === id.current}
@@ -101,6 +104,7 @@ const DynInput = ({
           onChange={(e) => {
             dynamicRender(attribute.name, e.target.value);
           }}
+          defaultValue={null}
           source={attribute.name}
           fullWidth={false}
           {...input_props}

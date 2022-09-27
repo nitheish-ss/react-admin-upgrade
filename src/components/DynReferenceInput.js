@@ -207,6 +207,7 @@ const DynReferenceInput = (props) => {
       <Grid item xs={4} spacing={4} margin={5}>
         <ReferenceInput key={version} {...props}>
           <AutocompleteInput
+            defaultValue={null}
             translateChoice={false}
             optionText={props.optionText}
             optionValue={props.optionValue}
