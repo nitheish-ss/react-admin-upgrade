@@ -89,8 +89,8 @@ const ListActions = ({ resource }) => {
     <TopToolbar>
       <FilterButton />
       <InfoModal resource={resource} mode="list" />
-      <CreateButton label="CREATE" />
-      <ExportButton label="EXPORT" />
+      <CreateButton label="ra.action.create" />
+      <ExportButton label="ra.action.export" />
     </TopToolbar>
   );
 };
