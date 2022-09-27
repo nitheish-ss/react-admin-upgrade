@@ -25,9 +25,19 @@ import muiTypography from "@mui/material/Typography";
 
 const yaml = require("js-yaml");
 
-let als_yaml_url = "/ui/admin/admin.yaml";
+const str = window.location.href;
+const arr = str.split("/");
+const index = arr.findIndex((e) => e === "admin");
+let yamlName;
+if (index === -1) {
+  yamlName = "admin";
+} else {
+  yamlName = arr[index + 1] ?? "admin";
+}
+console.log(yamlName)
+let als_yaml_url = `/ui/admin/${yamlName}.yaml`;
 if (window.location.href.includes(":3000")) {
-  als_yaml_url = "http://localhost:5656/ui/admin/admin.yaml";
+  als_yaml_url = `http://localhost:5656/ui/admin/${yamlName}.yaml`;
 }
 
 const useStyles = makeStyles((theme) => ({
