@@ -25,7 +25,7 @@ const DynInput = ({
   const conf = useConf();
   useEffect(()=>{
     if(attribute.show_when){
-    setRecords({ [attribute]: "" })}
+    setRecords(attribute,"" )}
   },[])
   const label = attribute.label || attribute.name;
   const input_props = {
@@ -41,7 +41,7 @@ const DynInput = ({
 
   const dynamicRender = (name, value) => {
     id.current = name;
-    setRecords({ [name]: value });
+    setRecords(name, value);
   };
 
   if (attribute.show_when && !renderSwitch.includes(attribute.name)) {

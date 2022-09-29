@@ -30,6 +30,7 @@ const useStyles = makeStyles({
 });
 function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
   const [renderSwitch, setRenderSwitch] = useState([]);
+  const recordRef = useRef({})
   const [showDialog, setShowDialog] = useState(false);
   const [create, { loading }] = useCreate(resource_name);
   const [refreshId, setRefreshId] = useState(1);
@@ -41,7 +42,9 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
   const attributes = resource?.attributes || [];
   const isInserting = true;
 
-  const setRecords = (record) => {
+  const setRecords = (name, value) => {
+    recordRef.current = {...recordRef.current, [name]: value};
+    const record = recordRef.current;
     const recordsArray = attributes
       .filter(
         (attr) =>

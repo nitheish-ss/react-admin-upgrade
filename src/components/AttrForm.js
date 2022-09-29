@@ -12,12 +12,15 @@ const useStyles = makeStyles({
 
 const AttrForm = ({ attributes, ...props }) => {
   const [renderSwitch, setRenderSwitch] = useState([]);
+  const recordRef = useRef({})
   const isValidExp = useRef(false);
   const redirect = useRedirect();
   const notify = useNotify();
   const refresh = useRefresh();
   const isInserting = props.isInserting;
-  const setRecords = (record) => {
+  const setRecords = (name, value) => {
+    recordRef.current = {...recordRef.current, [name]: value};
+    const record = recordRef.current;
     const recordsArray = attributes
       .filter(
         (attr) =>

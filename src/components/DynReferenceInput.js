@@ -11,6 +11,7 @@ import {
   Toolbar,
   Create,
 } from "react-admin";
+import {useRef} from "react"
 import { useForm } from "react-final-form";
 import React, { useState, useCallback, memo } from "react";
 import { useFormState } from "react-final-form";
@@ -36,6 +37,7 @@ const useStyles = makeStyles({
 
 function QuickCreateButton({ onChange, resource_name, cb_set_id, basePath }) {
   const [renderSwitch, setRenderSwitch] = useState([]);
+  const recordRef = useRef({})
   const [showDialog, setShowDialog] = useState(false);
   const [create, { loading }] = useCreate(resource_name);
   const notify = useNotify();
@@ -45,7 +47,9 @@ function QuickCreateButton({ onChange, resource_name, cb_set_id, basePath }) {
   const resource = conf.resources[resource_name];
   const attributes = resource?.attributes || [];
   const isInserting = true;
-  const setRecords = (record) => {
+  const setRecords = (name, value) => {
+    recordRef.current = {...recordRef.current, [name]: value};
+    const record = recordRef.current;
     const recordsArray = attributes
       .filter(
         (attr) =>
