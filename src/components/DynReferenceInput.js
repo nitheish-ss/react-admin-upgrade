@@ -10,6 +10,7 @@ import {
   SimpleForm,
   Toolbar,
   Create,
+  useRecordContext,
 } from "react-admin";
 import {useRef} from "react"
 import { useForm } from "react-final-form";
@@ -220,6 +221,7 @@ const DynReferenceInput = (props) => {
             optionText={props.optionText}
             optionValue={props.optionValue}
             key={props.source}
+            source={props.source}
             onChange={(evt) => setSelected(evt.target)}
           />
         </ReferenceInput>

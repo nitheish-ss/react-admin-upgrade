@@ -156,9 +156,7 @@ const ShowInstance = ({
       return DynRelationshipMany(resource_name, id, tab, basePath);
     }
     if (tab.direction === "toone") {
-      return id !== undefined
-        ? DynRelationshipOne(resource_name, id, tab)
-        : null;
+      return  DynRelationshipOne(resource_name, id, tab)
     }
   });
 

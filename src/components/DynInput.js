@@ -138,13 +138,6 @@ const DynInput = ({
         optionText = search_cols[0].name;
       }
     }
-    /*result = <ReferenceInput source={attribute.name}
-                                 label={`${attribute.relationship.name} (${attribute.name})`}
-                                 reference={attribute.relationship.target}
-                                 resource={attribute.relationship.resource}
-                                 fullWidth>
-                    <AutocompleteInput optionText={optionText} key={attribute.name} id={0}/>
-                </ReferenceInput>*/
     const ri_props = {};
     if (selected_ref) {
       ri_props["defaultValue"] = selected_ref;

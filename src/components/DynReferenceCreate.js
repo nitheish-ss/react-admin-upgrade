@@ -129,7 +129,8 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
           submitOnEnter={true}
           mutationOptions={{onSuccess: () => {
             handleCloseClick();
-            refresh();
+            refresh()
+            notify(`${resource_name} created successfully`)
           }}}
 
         />
