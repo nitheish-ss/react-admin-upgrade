@@ -38,6 +38,7 @@ const useStyles = makeStyles({
 function QuickCreateButton({ onChange, resource_name, cb_set_id, basePath }) {
   const [renderSwitch, setRenderSwitch] = useState([]);
   const recordRef = useRef({})
+  const focusRef = useRef(null)
   const [showDialog, setShowDialog] = useState(false);
   const [create, { loading }] = useCreate(resource_name);
   const notify = useNotify();
@@ -48,6 +49,7 @@ function QuickCreateButton({ onChange, resource_name, cb_set_id, basePath }) {
   const attributes = resource?.attributes || [];
   const isInserting = true;
   const setRecords = (name, value) => {
+    focusRef.current = name;
     recordRef.current = {...recordRef.current, [name]: value};
     const record = recordRef.current;
     const recordsArray = attributes
@@ -166,6 +168,7 @@ function QuickCreateButton({ onChange, resource_name, cb_set_id, basePath }) {
                   <DynInput
                     renderSwitch={renderSwitch}
                     setRecords={setRecords}
+                    myfocusRef = {focusRef.current}
                     attribute={attr}
                     key={attr.name}
                   />
@@ -182,6 +185,7 @@ function QuickCreateButton({ onChange, resource_name, cb_set_id, basePath }) {
                   <DynInput
                     renderSwitch={renderSwitch}
                     setRecords={setRecords}
+                    myfocusRef = {focusRef.current}
                     attribute={attr}
                     key={attr.name}
                     xs={8}
