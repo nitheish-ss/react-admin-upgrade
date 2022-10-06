@@ -97,13 +97,11 @@ const AsyncResources = () => {
             })()}
           />
         ))
-        // <Resource name="Dashboard" show={Dashboard} list={Dashboard} options={{ label: 'Dashboard' }} icon={DashboardIcon}/>
       }
     </AdminUI>
   );
 };
 
-// App component
 const App = () => {
   const conf = useConf();
   const dataProvider = jsonapiClient(conf.api_root, {});
@@ -111,7 +109,7 @@ const App = () => {
     defaultOptions: {
       queries: {
         retry: false,
-        staleTime:300000, // 5 minutes
+        staleTime:300000,
         refetchOnWindowFocus: false
       },
     },
