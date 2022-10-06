@@ -21,17 +21,17 @@ import DialogActions from "@material-ui/core/DialogActions";
 import { memo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Save } from "@mui/icons-material";
-import { useFormContext } from 'react-hook-form';
+import { useFormContext } from "react-hook-form";
 
 const useStyles = makeStyles({
   edit_grid: { width: "100%" },
-  save_button1:{marginLeft: "23%"},
-  save_button:{marginLeft:"2%"}
+  toolbar: { display: "flex", justifyContent: "space-between" },
+  save_button_group: { display: "flex" },
 });
 function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
   const [renderSwitch, setRenderSwitch] = useState([]);
-  const recordRef = useRef({})
-  const focusRef = useRef(null)
+  const recordRef = useRef({});
+  const focusRef = useRef(null);
   const [showDialog, setShowDialog] = useState(false);
   const [create, { loading }] = useCreate(resource_name);
   const [refreshId, setRefreshId] = useState(1);
@@ -45,13 +45,13 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
 
   const setRecords = (name, value) => {
     focusRef.current = name;
-    recordRef.current = {...recordRef.current, [name]: value};
+    recordRef.current = { ...recordRef.current, [name]: value };
     const record = recordRef.current;
     const recordsArray = attributes
       .filter(
         (attr) =>
           attr.show_when &&
-          (()=>{
+          (() => {
             try {
               const pattern1 = /record\["[a-zA-Z]+"] (==|!=) \"[a-zA-Z]+"/;
               const pattern2 = /isInserting (==|!=) (true|false)/;
@@ -68,10 +68,14 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
                 }
               }
               if (index == -1) {
-                return eval(attr.show_when)
+                return eval(attr.show_when);
               } else {
-                if (attr.resource.attributes.find((object)=> object.name == arr[index].split(/'|"/)[1])) {
-                  return eval(attr.show_when)
+                if (
+                  attr.resource.attributes.find(
+                    (object) => object.name == arr[index].split(/'|"/)[1]
+                  )
+                ) {
+                  return eval(attr.show_when);
                 } else {
                   throw "invalid attribute name";
                 }
@@ -112,62 +116,74 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
   const Mytoolbar = (props) => {
     const { reset } = useFormContext();
     return (
-      <Toolbar {...props}>
-        <Button
-          className={classes.button}
-          label="ra.action.cancel"
-          onClick={handleCloseClick}
-          disabled={loading}
-        >
-          <IconCancel />
-        </Button>
-
-        <SaveButton
-          type="button"
-          className={classes.save_button1}
-          label="save"
-          submitOnEnter={true}
-          mutationOptions={{onSuccess: () => {
-            handleCloseClick();
-            refresh()
-            notify(`${resource_name} created successfully`)
-          }}}
-
-        />
-        <SaveButton
-          type="button"
-          className={classes.save_button}
-          label="save and add another"
-          submitOnEnter={false}
-          variant="outlined"
-          redirect={false}
-          mutationOptions={{onSuccess:()=>{notify(`${resource_name} created successfully`);reset()}}}
-        />
-        <SaveButton
-          type="button"
-          className={classes.save_button}
-          label="save and show"
-          mutationOptions={{onSuccess:(data)=>{handleCloseClick();onSuccessShow(data)}}}
-          submitOnEnter={false}
-          variant="outlined"
-        />
+      <Toolbar {...props} className={classes.toolbar}>
+        <div className={classes.button}>
+          <Button
+            label="ra.action.cancel"
+            onClick={handleCloseClick}
+            disabled={loading}
+          >
+            <IconCancel />
+          </Button>
+        </div>
+        <div className={classes.save_button_group}>
+          <SaveButton
+            type="button"
+            label="save"
+            submitOnEnter={true}
+            mutationOptions={{
+              onSuccess: () => {
+                handleCloseClick();
+                refresh();
+                notify(`${resource_name} created successfully`);
+              },
+            }}
+          />
+          <SaveButton
+            type="button"
+            label="save and add another"
+            submitOnEnter={false}
+            variant="outlined"
+            redirect={false}
+            mutationOptions={{
+              onSuccess: () => {
+                notify(`${resource_name} created successfully`);
+                reset();
+              },
+            }}
+          />
+          <SaveButton
+            type="button"
+            label="save and show"
+            mutationOptions={{
+              onSuccess: (data) => {
+                handleCloseClick();
+                onSuccessShow(data);
+              },
+            }}
+            submitOnEnter={false}
+            variant="outlined"
+          />
+        </div>
       </Toolbar>
     );
   };
 
   const initialValue = () => {
-    const attribute = attributes.find((attr) => attr.relationship?.resource == currentParent)
-    const fks = attribute.relationship.fks
-    if(fks.length == 1){
-      return {[fks[0]]:currentid}
+    const attribute = attributes.find(
+      (attr) => attr.relationship?.resource == currentParent
+    );
+    const fks = attribute.relationship.fks;
+    if (fks.length == 1) {
+      return { [fks[0]]: currentid };
     }
-    let id = currentid.split('_')
+    let id = currentid.split("_");
     let resobj = {};
     for (let i = 0; i < fks.length; i++) {
-      resobj[fks[i]] = id[i]
+      resobj[fks[i]] = id[i];
     }
-    return resobj
-  }
+    return resobj;
+  };
   return (
     <>
       <Button onClick={handleClick} label={`Add New ${resource_name}`}>
@@ -182,9 +198,9 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
       >
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>
-          <Create  resource={resource_name}>
+          <Create resource={resource_name}>
             <SimpleForm
-              defaultValues={()=>initialValue()}
+              defaultValues={() => initialValue()}
               toolbar={<Mytoolbar />}
             >
               <Grid
@@ -200,7 +216,7 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
                     <DynInput
                       renderSwitch={renderSwitch}
                       setRecords={setRecords}
-                      myfocusRef = {focusRef.current}
+                      myfocusRef={focusRef.current}
                       attribute={attr}
                       key={attr.name}
                     />
@@ -219,7 +235,7 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
                     <DynInput
                       renderSwitch={renderSwitch}
                       setRecords={setRecords}
-                      myfocusRef = {focusRef.current}
+                      myfocusRef={focusRef.current}
                       attribute={attr}
                       key={attr.name}
                       xs={8}

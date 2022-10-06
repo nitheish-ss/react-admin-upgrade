@@ -1,11 +1,11 @@
-import {useNotify, useRedirect } from "react-admin";
-import {Create } from "react-admin";
+import { useNotify, useRedirect } from "react-admin";
+import { Create } from "react-admin";
 import { Toolbar, SaveButton } from "react-admin";
 import "./style/DynStyle.css";
 import { makeStyles } from "@material-ui/core/styles";
 import AttrForm from "./components/AttrForm.js";
 import get_Component from "./get_Component";
-import { useFormContext } from 'react-hook-form';
+import { useFormContext } from "react-hook-form";
 //import {ExtComp} from './components/ExtComp';
 
 const useStyles = makeStyles({
@@ -18,8 +18,8 @@ const useStyles = makeStyles({
 
 export const gen_DynResourceCreate = (resource) => (props) => {
   const classes = useStyles();
-  const notify = useNotify()
-  const redirect = useRedirect()
+  const notify = useNotify();
+  const redirect = useRedirect();
   const attributes = resource.attributes;
 
   if (resource.create) {
@@ -37,45 +37,50 @@ export const gen_DynResourceCreate = (resource) => (props) => {
           submitOnEnter={true}
           mutationOptions={{
             onSuccess: () => {
-                notify('Element created');
-                redirect(`/${resource.name}`)
-              }
-            }}
+              notify("Element created");
+              redirect(`/${resource.name}`);
+            },
+          }}
         />
-        <SaveButton
-          type="button"
-          className={classes.save_button}
-          label="save and add another"
-          submitOnEnter={false}
-          variant="outlined"
-          mutationOptions={{
-            onSuccess: () => {
-                notify('Element created');
-                reset()
-              }
+        <div className={classes.save_button}>
+          <SaveButton
+            type="button"
+            label="save and add another"
+            submitOnEnter={false}
+            variant="outlined"
+            mutationOptions={{
+              onSuccess: () => {
+                notify("Element created");
+                reset();
+              },
             }}
-        />
-        <SaveButton
-          type="button"
-          className={classes.save_button}
-          label="save and show"
-          submitOnEnter={false}
-          variant="outlined"
-          mutationOptions={{
-            onSuccess: (data) => {
-                notify('Element created');
-                redirect(`/${resource.name}/${data.id}/show`)
-              }
+          />
+        </div>
+        <div className={classes.save_button}>
+          <SaveButton
+            type="button"
+            label="save and show"
+            submitOnEnter={false}
+            variant="outlined"
+            mutationOptions={{
+              onSuccess: (data) => {
+                notify("Element created");
+                redirect(`/${resource.name}/${data.id}/show`);
+              },
             }}
-        />
+          />
+        </div>
       </Toolbar>
     );
   };
 
   return (
     <Create {...props}>
-      <AttrForm attributes={attributes} toolbar={<Mytoolbar />} isInserting={false} />
+      <AttrForm
+        attributes={attributes}
+        toolbar={<Mytoolbar />}
+        isInserting={false}
+      />
     </Create>
   );
 };
-
