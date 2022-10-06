@@ -400,7 +400,7 @@ export const jsonapiClient = (
           })
         )
       ).then((responses) => ({
-        data: responses.map(({ json }) => json.id)
+        data: responses.map(({ json }) => json)
       })),
 
     getResources: () => {
