@@ -218,8 +218,6 @@ const DynRelationshipOne = (resource_name, id, relationship) => {
       <BlockIcon style={{ fill: "#ccc" }} title="No data" />
     );
   } else if (error || rel_error) {
-    console.log({ resource_name }, { id }, { relationship }, relationship.name);
-    console.log({ data }, { rel_data });
     tab_content = <Error key={relationship.name} error={error || rel_error} />;
   } else if (rel_data) {
     tab_content = <RelatedInstance instance={rel_data} />;
@@ -240,7 +238,6 @@ const DynRelationshipOne = (resource_name, id, relationship) => {
       const rel_resource = type2resource(data[relationship.name].data?.type);
       const rel_id = data[relationship.name]?.data?.id;
       if (!rel_resource) {
-        console.log(data);
         console.warn(
           `Related resource not found ${resource_name}.${relationship.name}`
         );

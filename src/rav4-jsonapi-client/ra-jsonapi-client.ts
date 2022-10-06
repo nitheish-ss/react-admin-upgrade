@@ -176,7 +176,6 @@ export const jsonapiClient = (
 
         let { id, attributes, relationships, type } = json.data;
         if(id === undefined){
-          console.log(id, attributes)
           return {data:{}}
         }
         Object.assign(attributes, relationships, {type: type}, {relationships: relationships}, {attributes: {...attributes} });
@@ -198,7 +197,6 @@ export const jsonapiClient = (
     ********************************************************************************************/
     getMany: (resource, params: any) => {
       resource = capitalize(resource);
-      console.log('getMany:',resource, params)
       let query = `filter{"id":[${params.ids instanceof Array ? params.ids.join(',') : JSON.stringify(params.ids)}]}`
       const url = `${apiUrl}/${resource}?${query}`;
       return httpClient(url, {}).then(({ json }) => {
@@ -245,7 +243,6 @@ export const jsonapiClient = (
       let ids = params.id.split('_')
 
       if(ids.length != fks.length){
-          console.log(resource_name, params)
           console.warn("Wrong FK length ", ids, fks)
           fks = [params.target]
           ids = [params.id]

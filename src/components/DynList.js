@@ -127,14 +127,12 @@ const gen_DynResourceList = (resource_conf) => (props) => {
   const ListTitle = (props) => <>{resource_conf.name} List</>;
   const attributes = resource_conf.attributes;
   const fields = attr_fields(attributes, "list");
-  console.log("fields", fields);
   const col_nr = resource_conf.max_list_columns;
   const sort = resource_conf.sort_attr_names
     ? resource_conf.sort_attr_names[0]
     : "";
 
   document.title = resource_conf.label || resource_conf.name;
-console.log("fields",fields)
   let list = (
     <List
       actions={<ListActions resource={resource_conf} />}
