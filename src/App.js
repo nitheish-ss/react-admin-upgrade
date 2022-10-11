@@ -72,7 +72,8 @@ const AsyncResources = () => {
         icon={HomeIcon}
       />
       <Resource
-        name="Configuration"
+        name="ui/admin/admin.yaml"
+        label="Configuration"
         show={ConfigurationUI}
         list={ConfigurationUI}
         options={{ label: "Configuration" }}
