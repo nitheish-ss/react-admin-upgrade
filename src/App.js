@@ -1,5 +1,4 @@
 import * as React from "react";
-import { BrowserRouter } from 'react-router-dom';
 import { useMemo } from "react";
 import { gen_DynResourceCreate } from "./DynResource";
 import {
@@ -72,8 +71,7 @@ const AsyncResources = () => {
         icon={HomeIcon}
       />
       <Resource
-        name="ui/admin/admin.yaml"
-        label="Configuration"
+        name="Configuration"
         show={ConfigurationUI}
         list={ConfigurationUI}
         options={{ label: "Configuration" }}
@@ -117,7 +115,6 @@ const App = () => {
     },
   });
   return (
-    <BrowserRouter>
     <AdminContext
       dataProvider={dataProvider}
       authProvider={authProvider}
@@ -127,7 +124,6 @@ const App = () => {
     >
       <AsyncResources />
     </AdminContext>
-    </BrowserRouter>
   );
 };
 
