@@ -1,4 +1,5 @@
 import * as React from "react";
+import { BrowserRouter } from 'react-router-dom';
 import { useMemo } from "react";
 import { gen_DynResourceCreate } from "./DynResource";
 import {
@@ -115,6 +116,7 @@ const App = () => {
     },
   });
   return (
+    <BrowserRouter>
     <AdminContext
       dataProvider={dataProvider}
       authProvider={authProvider}
@@ -124,6 +126,7 @@ const App = () => {
     >
       <AsyncResources />
     </AdminContext>
+    </BrowserRouter>
   );
 };
 
