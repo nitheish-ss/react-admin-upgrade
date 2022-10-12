@@ -80,21 +80,23 @@ const AsyncResources = () => {
       {
         resources.map((resource) => (
           <Resource
-            name={resource.name}
+          options = {{label:(() => {
+            if (
+              conf.resources[resource.name].label &&
+              conf.resources[resource.name].label !=
+                conf.resources[resource.name].name
+            ) {
+              return resource_conf.label;
+            }
+            else{return resource.name}
+              
+          })()}}
             key={resource.name}
             list={gen_DynResourceList(conf.resources[resource.name])}
             create={gen_DynResourceCreate(conf.resources[resource.name])}
             edit={gen_DynResourceEdit(conf.resources[resource.name])}
             show={gen_DynResourceShow(conf.resources[resource.name])}
-            label={(() => {
-              if (
-                conf.resources[resource.name].label &&
-                conf.resources[resource.name].label !=
-                  conf.resources[resource.name].name
-              ) {
-                return resource_conf.label;
-              }
-            })()}
+            name={encodeURI(resource.name)}
           />
         ))
       }

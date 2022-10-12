@@ -8,7 +8,8 @@ import {getConf} from '../Config'
 const conf : { [ key: string] : any } = getConf();
 const duration = 2000;
 
-const prepareAttributes = (attributes : any, resource : any) => {
+const prepareAttributes = (attributes : any, resource_en : any) => {
+    const resource = decodeURI(resource_en)
     // temp: convert all numbers to string to allow FK lookups (jsonapi ids are strings, while FKs may be numbers :////)
     const resource_attr_rels = conf.resources[resource].attributes?.map( (attr : any) => attr.relationship ? attr.name : null)    
     const m_attrs = Object.assign({}, attributes)
@@ -69,7 +70,7 @@ export const jsonapiClient = (
      *******************************************************************************************/
     getList: (resource, params) => {
       /*todo: rename resource to resource_name*/
-      const resource_name = resource;
+      const resource_name = decodeURI(resource);
       const { page, perPage } = params.pagination;
       
       const resource_conf : any = conf.resources[resource_name];
@@ -158,7 +159,8 @@ export const jsonapiClient = (
     /*******************************************************************************************
       getOne
     ********************************************************************************************/
-    getOne: (resource: any, params: { id: any }) => {
+    getOne: (resource_en: any, params: { id: any }) => {
+      const resource = decodeURI(resource_en)
       if(params.id === null || params.id === undefined){
           console.debug(`params.id is '${params.id}'`)
           return new Promise(()=>{return {data: {}}})
@@ -195,8 +197,9 @@ export const jsonapiClient = (
     /*******************************************************************************************
       getMany
     ********************************************************************************************/
-    getMany: (resource, params: any) => {
-      resource = capitalize(resource);
+    getMany: (resource_en, params: any) => {
+      const  resource_de = decodeURI(resource_en)
+      const  resource = capitalize(resource_de);
       let query = `filter[Id]=${params.ids instanceof Array ? params.ids.join(',') : JSON.stringify(params.ids)}`
       const url = `${apiUrl}/${resource}?${query}`;
       return httpClient(url, {}).then(({ json }) => {
@@ -225,8 +228,8 @@ export const jsonapiClient = (
     /*******************************************************************************************
       getManyReference
     ********************************************************************************************/
-    getManyReference: (resource_name, params : any) => {
-      
+    getManyReference: (resource_name_en, params : any) => {
+      const resource_name = decodeURI(resource_name_en)
       const { page, perPage } = params.pagination;
       const { field, order } = params.sort;
 
@@ -283,7 +286,8 @@ export const jsonapiClient = (
       });
     },
 
-    update: (resource_name : string, params: any) => {
+    update: (resource_name_en : string, params: any) => {
+      const resource_name = decodeURI(resource_name_en)
       let type = conf["resources"][resource_name].type || resource_name;
       /*const arr = settings.endpointToTypeStripLastLetters;
       for (const i in arr) {
@@ -331,7 +335,7 @@ export const jsonapiClient = (
               attributes: params.data
             }
           };
-          return httpClient(`${apiUrl}/${resource_name}/${id}`, {
+          return httpClient(`${apiUrl}/${decodeURI(resource_name)}/${id}`, {
             method: 'PATCH',
             body: JSON.stringify(params.data)
           })
@@ -340,7 +344,8 @@ export const jsonapiClient = (
       .then((responses) => ({ data: responses.map(({ json }) => json.id) }))
       ,
 
-    create: (resource_name : string, params: any) => {
+    create: (resource_name_en : string, params: any) => {
+      const resource_name = decodeURI(resource_name_en)
       let type = conf["resources"][resource_name].type || resource_name;
       
       /*let type = resource;
@@ -378,7 +383,7 @@ export const jsonapiClient = (
     },
 
     delete: (resource, params) =>
-      httpClient(`${apiUrl}/${resource}/${params.id}`, {
+      httpClient(`${apiUrl}/${decodeURI(resource)}/${params.id}`, {
         method: 'DELETE',
         headers: new Headers({
           'Content-Type': 'text/plain'
@@ -389,7 +394,7 @@ export const jsonapiClient = (
     deleteMany: (resource, params) =>
       Promise.all(
         params.ids.map((id) =>
-          httpClient(`${apiUrl}/${resource}/${id}`, {
+          httpClient(`${apiUrl}/${decodeURI(resource)}/${id}`, {
             method: 'DELETE',
             headers: new Headers({
               'Content-Type': 'text/plain'
