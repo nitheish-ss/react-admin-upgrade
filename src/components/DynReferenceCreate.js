@@ -106,6 +106,7 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
 
   const handleCloseClick = () => {
     setShowDialog(false);
+    refresh()
   };
   const title = `Create ${resource_name}`;
   const classes = useStyles();
@@ -149,6 +150,7 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
               onSuccess: () => {
                 notify(`${resource_name} created successfully`);
                 reset();
+                setRefreshId(x=>x+1)
               },
             }}
           />
