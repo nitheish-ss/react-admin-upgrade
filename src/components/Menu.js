@@ -1,6 +1,6 @@
-import {forwardRef, useEffect, useState} from 'react'
+import {forwardRef} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { Menu as RAMenu, MenuItemLink, useDataProvider, useLogout, useResourceDefinitions } from 'react-admin';
+import { Menu as RAMenu, MenuItemLink, useLogout, useResourceDefinitions } from 'react-admin';
 import { AppBar, UserMenu, useTranslate } from 'react-admin';
 import DefaultIcon from '@material-ui/icons/ViewList';
 import SettingsIcon from '@material-ui/icons/Settings';

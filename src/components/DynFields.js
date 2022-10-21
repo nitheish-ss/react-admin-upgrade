@@ -1,18 +1,12 @@
 import React from "react";
-import { useGetOne, useRefresh } from 'react-admin';
+import { useGetOne} from 'react-admin';
 import { useDataProvider } from 'react-admin';
 import { 
-    Confirm,
     useRecordContext,
-    DateField,
-    PasswordInput,
-    TextField,
-    FunctionField } from 'react-admin';
+    DateField } from 'react-admin';
 import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core';
-import {Loading, Error } from 'react-admin';
-import DeleteIcon from "@material-ui/icons/Delete";
-import { useState, useEffect, useMemo} from 'react';
+import { useState } from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import DensityMediumIcon from '@mui/icons-material/DensityMedium';

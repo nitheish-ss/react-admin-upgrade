@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Datagrid,
   EditButton,
@@ -10,7 +9,6 @@ import {
   useRecordContext,
   Confirm,
   FunctionField,
-  TextField,
 } from "react-admin";
 import Button from "@material-ui/core/Button";
 import { useState } from "react";

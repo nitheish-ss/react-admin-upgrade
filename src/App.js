@@ -1,21 +1,17 @@
 import * as React from "react";
-import { useMemo } from "react";
 import { gen_DynResourceCreate } from "./DynResource";
 import {
   AdminContext,
   AdminUI,
-  defaultI18nProvider,
-  localStorageStore,
   Loading,
   Resource,
   useDataProvider,
-  usePermissions,
 } from "react-admin";
 import englishMessages from 'ra-language-english';
 import polyglotI18nProvider from 'ra-i18n-polyglot';
 import { jsonapiClient } from "./rav4-jsonapi-client/ra-jsonapi-client";
 import { useConf } from "./Config";
-import ConfigurationUI, { LoadYaml } from "./components/ConfigurationUI";
+import ConfigurationUI from "./components/ConfigurationUI";
 import { Layout } from "./components/Layout";
 import Home from "./components/Home.js";
 import HomeIcon from "@material-ui/icons/Home";

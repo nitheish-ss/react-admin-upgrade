@@ -4,7 +4,6 @@ import DynInput from "./DynInput.js";
 import { SimpleForm } from "react-admin";
 import { useRedirect, useRefresh, useNotify } from "react-admin";
 import Grid from "@material-ui/core/Grid";
-import { isJsxFragment } from "typescript";
 
 const useStyles = makeStyles({
   edit_grid: { width: "100%" },

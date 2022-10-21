@@ -1,4 +1,3 @@
-import * as React from "react";
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { Title } from 'react-admin';
@@ -13,22 +12,14 @@ import { useDataProvider } from 'react-admin';
 import get_Component from '../get_Component.js';
 
 import {
-  BrowserRouter as Router,
-  Link,
-  useLocation
+  Link
 } from "react-router-dom";
 
-function useQuery() {
-    const { search } = useLocation();
-  
-    return React.useMemo(() => new URLSearchParams(search), [search]);
-}
 
 const styles = {
     home: {fontFamily : '"Roboto", "Helvetica", "Arial", sans-serif'},
 };
-//import universal from 'react-universal-component'
-//const UniversalComponent = universal(props => import(`https://my.internet.com/imager/comp.js`))
+
 
 const Demo = ({ready, config}) => {
 

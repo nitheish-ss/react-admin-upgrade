@@ -5,7 +5,7 @@ import {
   PasswordInput,
   required,
 } from "react-admin";
-import React, { useState, useRef, memo, useEffect } from "react";
+import { useState, memo, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import { useConf } from "../Config.js";
 import get_Component from "../get_Component";
@@ -16,10 +16,8 @@ const DynInput = ({
   setRecords,
   myfocusRef,
   attribute,
-  resource,
   xs,
   currentid,
-  currentParent,
 }) => {
   const [selected_ref, setSelected_ref] = useState(false);
   const conf = useConf();

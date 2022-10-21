@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import { makeStyles } from '@material-ui/core/styles';
 import {useConf} from '../Config.js'

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect} from "react";
 import { Datagrid, EditButton, useGetOne, useNotify, useRedirect } from "react-admin";
 
 import Grid from "@material-ui/core/Grid";
@@ -18,19 +18,14 @@ import EditIcon from "@material-ui/icons/Edit";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import { useConf } from "../Config.js";
 import Button from "@material-ui/core/Button";
-import { useQueryWithStore, Loading, Error } from "react-admin";
+import { Loading, Error } from "react-admin";
 import { makeStyles } from "@material-ui/core/styles";
 import { type2resource } from "../util.js";
 import { ShowAttrField } from "./DynFields.js";
 import { attr_fields } from "./DynFields.js";
 import { DynPagination } from "../util";
 import {
-  ListActions as RAListActions,
-  FilterButton,
   TopToolbar,
-  CreateButton,
-  ExportButton,
-  TextField,
 } from "react-admin";
 import InfoModal from "./InfoModal.js";
 import get_Component from "../get_Component.js";

@@ -1,6 +1,4 @@
-import React from "react";
-import { useState, useMemo} from 'react';
-import { Resource} from 'react-admin';
+import { useState} from 'react';
 import {
   Edit
 } from "react-admin";

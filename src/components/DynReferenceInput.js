@@ -10,19 +10,15 @@ import {
   SimpleForm,
   Toolbar,
   Create,
-  useRecordContext,
 } from "react-admin";
 import { useRef } from "react";
-import { useForm } from "react-final-form";
-import React, { useState, useCallback, memo } from "react";
-import { useFormState } from "react-final-form";
+import { useState, useCallback, memo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import IconContentAdd from "@material-ui/icons/Add";
 import IconCancel from "@material-ui/icons/Cancel";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
 import Grid from "@material-ui/core/Grid";
 import { useConf } from "../Config.js";
 import QuickPreviewButton from "./QuickPreviewButton.js";

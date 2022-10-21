@@ -1,10 +1,10 @@
 import * as React from "react";
 import { Suspense, useMemo } from "react";
-import { useRef, Component } from "react";
+import { useRef} from "react";
 import { TextareaAutosize, TextField } from "@material-ui/core";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import ClearIcon from "@material-ui/icons/Clear";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -21,8 +21,6 @@ import { Loading } from "react-admin";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import muiTypography from "@mui/material/Typography";
-
 const yaml = require("js-yaml");
 
 const str = window.location.href;

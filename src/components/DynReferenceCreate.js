@@ -1,9 +1,7 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   Create,
-  FormWithRedirect,
   SimpleForm,
-  useGetManyReference,
   useNotify,
   useRedirect,
 } from "react-admin";
@@ -17,10 +15,8 @@ import IconCancel from "@material-ui/icons/Cancel";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
 import { memo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Save } from "@mui/icons-material";
 import { useFormContext } from "react-hook-form";
 
 const useStyles = makeStyles({

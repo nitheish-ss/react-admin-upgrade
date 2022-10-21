@@ -1,4 +1,3 @@
-import { showNotification } from 'react-admin';
 import {getConf} from './Config'
 import {resetConf} from "./components/ConfigurationUI";
 

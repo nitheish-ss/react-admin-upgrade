@@ -1,13 +1,6 @@
-import React, { useState, useEffect } from 'react';
 import config from './Config.json'
-import { useRefresh } from "react-admin"
 //import als_config from './Config.als.json'
 
-const useQuery = () => {
-    //const search = useLocation() || "";
-    //console.log(search)
-    //return React.useMemo(() => new URLSearchParams(search), [search])
-}
 
 const init_Conf = () => {
     const selected_api = null

@@ -6,7 +6,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import AttrForm from "./components/AttrForm.js";
 import get_Component from "./get_Component";
 import { useFormContext } from "react-hook-form";
-//import {ExtComp} from './components/ExtComp';
 
 const useStyles = makeStyles({
   join_attr: { color: "#3f51b5;" },
