@@ -1,20 +1,12 @@
-import { useState} from 'react';
 import {
   Edit
 } from "react-admin";
 import { useRefresh } from 'react-admin';
-import { useDataProvider } from 'react-admin';
 import { useNotify, useRedirect } from 'react-admin';
-import { makeStyles } from '@material-ui/core/styles';
 import { useNavigate } from "react-router-dom"
 import AttrForm from "./AttrForm.js";
 
-const useStyles = makeStyles({
-    join_attr: {color: '#3f51b5;'},
-    delete_icon : {fill: "#3f51b5"},
-    edit_grid : { width: "100%" },
-    rel_icon: {paddingLeft:"0.4rem", color: "#666", marginBottom:"0px"}
-});
+
 
 const DynEdit = (props) => {
 
@@ -33,10 +25,7 @@ export const gen_DynResourceEdit = (resource) => {
         const notify = useNotify();
         const refresh = useRefresh();
         const redirect = useRedirect();
-        const dataProvider = useDataProvider();
-        const classes = useStyles();
         const navigate = useNavigate();
-        const [loaded, setLoaded] = useState(false)
 
         const onFailure = (error) => {
             notify(`Error Saving Changes`,  { type: 'warning' })

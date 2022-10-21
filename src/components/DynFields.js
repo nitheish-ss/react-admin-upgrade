@@ -63,7 +63,7 @@ const TruncatedTextField = (props) => {
             value = "Value Error"
         }
     }
-    if(!value || value.length < 128 || !value.slice || !value.slice instanceof Function){
+    if(!value || value.length < 128 || !value.slice || !(value.slice instanceof Function)){
         return <span>{value}</span>
     }
     return <span>{value.slice(0, 128) + "..." }</span>;
@@ -76,7 +76,7 @@ const NestedJoinedField = ({resource_name, id}) => {
     const conf = useConf();
     const dataProvider = useDataProvider()
     const user_key = conf.resources[resource_name]?.user_key || "id"
-    const { data, isLoading, error } = useGetOne(resource_name,{ id: id });
+    const { data } = useGetOne(resource_name,{ id: id });
     const modal_content = <RelatedInstance instance={data} resource_name={resource_name}/>
     return <JoinModal label={data && data[user_key]} content={modal_content} resource_name={resource_name} />
 }
@@ -94,7 +94,7 @@ const JoinedField = ({attribute, pvalue}) => {
     const fk = join.fks.join('_')
     const id = record ? record[fk] : null
     const dataProvider = useDataProvider()
-    const { data, isLoading, error } = useGetOne(target_resource.name,{ id: id })
+    const { data, isLoading} = useGetOne(target_resource.name,{ id: id })
 
     if(!record){
         return null
@@ -118,7 +118,6 @@ const JoinedField = ({attribute, pvalue}) => {
         label = load_custom_component(user_component, item)
     }
     else if(item.attributes && user_key){
-        const target_col = attribute.relationship.target_resource.attributes.filter((col) => col.name == user_key)
         label = <span>{item.attributes[user_key] || item.id}</span>
     }
     else if (user_key in item){
@@ -142,7 +141,7 @@ const ToOneJoin = ({attribute}) => {
 }
 
 export const attr_fields = (attributes, mode, ...props) => {
-    if(! attributes instanceof Array){
+    if(! (attributes instanceof Array)){
         console.warn("Invalid attributes", attributes)
         return []
     }
@@ -151,7 +150,7 @@ export const attr_fields = (attributes, mode, ...props) => {
             if(attr.hidden === mode || attr.hidden === true){
                 //return null;
             }
-            if(attr.relationship?.direction == "toone"){
+            if(attr.relationship?.direction === "toone"){
                 const label_text = attr.label || attr.relationship.resource || attr.name
                 return <ToOneJoin attribute={attr} label={label_text} key={attr.name}/>
             }
@@ -176,7 +175,7 @@ const AttrField = ({attribute, mode, ...props}) => {
     const conf = useConf();
     let result = <TruncatedTextField source={attribute.name} key={attribute.name} sortBy={attribute.name} label={attribute.label || attribute.name} {...props}/>
     
-    if(attribute.type?.toLowerCase() == "date"){
+    if(attribute.type?.toLowerCase() === "date"){
         result = <DateField source={attribute.name} key={attribute.name} style={style} locales={conf.settings.locale} {...props}/>
     }
     if(!component){
@@ -221,7 +220,7 @@ const ShowField = ({ label, value, attr, mode, ...props }) => {
         }
     }
     
-    if(!value || value.length < trunc_size || !value.slice || !value.slice instanceof Function){
+    if(!value || value.length < trunc_size || !value.slice || !(value.slice instanceof Function)){
         
     }
     else{

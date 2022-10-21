@@ -66,11 +66,9 @@ export const DetailPanel = ({ attributes, path }) => {
 export const ShowRecordField = ({ source, tabs, path }) => {
   const record = useRecordContext();
   const refresh = useRefresh();
-  const classes = useStyles();
   const redirect = useRedirect();
   const notify = useNotify();
   const attr_name = source.name;
-  const label = source.label || attr_name;
   let value = record[attr_name];
   const isInserting = false;
   if (source.show_when) {
@@ -90,7 +88,7 @@ export const ShowRecordField = ({ source, tabs, path }) => {
         }
       }
 
-      if (index == -1) {
+      if (index === -1) {
         if (!eval(source.show_when)) {
           return <></>;
         }
@@ -253,9 +251,9 @@ const DynRelationshipOne = (resource_name, id, relationship) => {
 };
 
 const DynRelationshipMany = (resource_name, id, relationship, path) => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState();
-  const [related, setRelated] = useState(false);
+  const [,setLoading] = useState(true);
+  const [, setError] = useState();
+  const [, setRelated] = useState(false);
   const dataProvider = useDataProvider();
   const classes = useStyles();
   const conf = useConf();

@@ -10,7 +10,7 @@ const init_Conf = () => {
             alert()
         }
     }
-    if(! "raconf" in localStorage){
+    if(! ("raconf" in localStorage)){
         console.log("Init Configuration")
         localStorage.setItem("raconf",JSON.stringify(config))
         window.location.reload()
@@ -102,13 +102,13 @@ const json2Conf = (conf) => {
         let attributes = resource.attributes || []
 
         for(let attr of attributes){
-            if(!(attr.constructor == Object)){
+            if(!(attr.constructor === Object)){
                 console.warn(`Invalid attribute ${attr}`)
                 continue
             }
             for(let rel of resource.relationships || []){
                 for(let fk of rel.fks || []){
-                    if(attr.name == fk){
+                    if(attr.name === fk){
                         attr.relationship = rel;
                         attr.relationship.target_resource = result.resources[attr.relationship.target] || result.resources[attr.relationship.resource]
                     }
@@ -118,7 +118,7 @@ const json2Conf = (conf) => {
                 resource.search_cols.push(attr);
             }
             if(attr.sort){
-                if(attr.sort == "DESC"){
+                if(attr.sort === "DESC"){
                     resource.sort_attr_names.push('-' + attr.name)
                 }
                 else{

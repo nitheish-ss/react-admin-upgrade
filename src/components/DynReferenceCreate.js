@@ -29,8 +29,8 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
   const recordRef = useRef({});
   const focusRef = useRef(null);
   const [showDialog, setShowDialog] = useState(false);
-  const [create, { loading }] = useCreate(resource_name);
-  const [refreshId, setRefreshId] = useState(1);
+  const [, { loading }] = useCreate(resource_name);
+  const [, setRefreshId] = useState(1);
   const notify = useNotify();
   const conf = useConf();
   const redirect = useRedirect();
@@ -169,10 +169,10 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
 
   const initialValue = () => {
     const attribute = attributes.find(
-      (attr) => attr.relationship?.resource == currentParent
+      (attr) => attr.relationship?.resource === currentParent
     );
     const fks = attribute.relationship.fks;
-    if (fks.length == 1) {
+    if (fks.length === 1) {
       return { [fks[0]]: currentid };
     }
     let id = currentid.split("_");

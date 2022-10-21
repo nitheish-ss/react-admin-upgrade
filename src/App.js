@@ -79,7 +79,7 @@ const AsyncResources = () => {
           options = {{label:(() => {
             if (
               conf.resources[resource.name].label &&
-              conf.resources[resource.name].label !=
+              conf.resources[resource.name].label !==
                 conf.resources[resource.name].name
             ) {
               return resource_conf.label;

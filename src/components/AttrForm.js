@@ -13,14 +13,15 @@ const AttrForm = ({ attributes, ...props }) => {
   const [renderSwitch, setRenderSwitch] = useState([]);
   const recordRef = useRef({})
   const focusRef = useRef(null)
-  const isValidExp = useRef(false);
   const redirect = useRedirect();
   const notify = useNotify();
   const refresh = useRefresh();
+  // eslint-disable-next-line no-unused-vars
   const isInserting = props.isInserting;
   const setRecords = (name, value) => {
     focusRef.current = name;
     recordRef.current = {...recordRef.current, [name]: value};
+    // eslint-disable-next-line no-unused-vars
     const record = recordRef.current;
     const recordsArray = attributes
       .filter(
@@ -42,7 +43,7 @@ const AttrForm = ({ attributes, ...props }) => {
                   throw "invalid expression";
                 }
               }
-              if (index == -1) {
+              if (index === -1) {
                 return eval(attr.show_when)
               } else {
                 if (attr.resource.attributes.find((object)=> object.name == arr[index].split(/'|"/)[1])) {

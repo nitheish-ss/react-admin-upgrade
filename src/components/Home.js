@@ -32,11 +32,9 @@ const Demo = ({ready, config}) => {
 
 const Home = (props) => {
     document.title = ""
-    const { classes } = props;
     const config = useConf()
     const [scriptLoaded, setScriptLoaded] = useState(false);
     const [initialized, setInitialized] = useState(false)
-    const [resourcesLoaded, setResourcesLoaded] = useState([])
     const dataProvider = useDataProvider();
 	/* for(let [resource_name, resource] of Object.entries(config.resources)){
         console.log(`prefetch ${resource_name}`)

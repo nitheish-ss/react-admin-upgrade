@@ -349,8 +349,7 @@ const ConfigurationUI = () => {
   );
   const [bgColor, setBgColor] = useState("black");
   const [autosave, setAutosave] = useState(true);
-  const [api_root, setApiroot] = useState(JSON.parse(conf)?.api_root);
-  const [editor, setEditor] = useState(false);
+  const [, setApiroot] = useState(JSON.parse(conf)?.api_root);
 
   const handleAutoSaveChange = (event) => {
     setAutosave(event.target.checked);
@@ -358,7 +357,7 @@ const ConfigurationUI = () => {
 
   const Editor = useMemo(
     () => React.lazy(() => import("@uiw/react-monacoeditor")),
-    ["monaco"]
+    []
   );
   const TabPanel = (props) => {
     const { children, value, index, ...other } = props;

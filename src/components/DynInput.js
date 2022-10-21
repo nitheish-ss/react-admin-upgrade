@@ -64,7 +64,7 @@ const DynInput = ({
     const Component = get_Component(attribute.component);
     return <Component attr={attribute} mode="edit" />;
   }
-  if (attr_type == "date") {
+  if (attr_type === "date") {
     result = (
       <GridWrap>
         <DateInput
@@ -79,7 +79,7 @@ const DynInput = ({
       </GridWrap>
     );
   }
-  if (attr_type == "password") {
+  if (attr_type === "password") {
     result = (
       <GridWrap>
         <PasswordInput
@@ -94,7 +94,7 @@ const DynInput = ({
       </GridWrap>
     );
   }
-  if (attr_type == "number" || attr_type == "decimal") {
+  if (attr_type === "number" || attr_type === "decimal") {
     result = (
       <GridWrap>
         <NumberInput
@@ -112,13 +112,13 @@ const DynInput = ({
   }
 
   if (
-    attribute.relationship?.direction == "toone" &&
+    attribute.relationship?.direction === "toone" &&
     attribute.relationship.target
   ) {
     let optionText = "";
     let optionValue = "id";
     if (
-      attribute.relationship.fks?.length != 1 &&
+      attribute.relationship.fks?.length !== 1 &&
       attribute.relationship.fks?.includes(attribute.name)
     ) {
       optionText = attribute.name.toLowerCase();
@@ -128,7 +128,7 @@ const DynInput = ({
         conf.resources[attribute.relationship.target].search_cols;
       if (!search_cols) {
         console.error("no searchable attributes configured");
-      } else if (search_cols.length == 0) {
+      } else if (search_cols.length === 0) {
         console.warn(
           `no searchable attributes configured for ${attribute.relationship.target}`
         );

@@ -38,7 +38,7 @@ function QuickCreateButton({ onChange, resource_name, cb_set_id, basePath }) {
   const recordRef = useRef({});
   const focusRef = useRef(null);
   const [showDialog, setShowDialog] = useState(false);
-  const [create, { loading }] = useCreate(resource_name);
+  const [, { loading }] = useCreate(resource_name);
   const notify = useNotify();
   const conf = useConf();
   const redirect = useRedirect();
@@ -70,7 +70,7 @@ function QuickCreateButton({ onChange, resource_name, cb_set_id, basePath }) {
                   throw "invalid expression";
                 }
               }
-              if (index == -1) {
+              if (index === -1) {
                 return eval(attr.show_when);
               } else {
                 if (
