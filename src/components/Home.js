@@ -8,7 +8,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {resetConf} from "./ConfigurationUI";
 import ALSDesc from "./ValH"
-import { useDataProvider } from 'react-admin';
 import get_Component from '../get_Component.js';
 
 import {
@@ -35,7 +34,6 @@ const Home = (props) => {
     const config = useConf()
     const [scriptLoaded, setScriptLoaded] = useState(false);
     const [initialized, setInitialized] = useState(false)
-    const dataProvider = useDataProvider();
 	/* for(let [resource_name, resource] of Object.entries(config.resources)){
         console.log(`prefetch ${resource_name}`)
         dataProvider.getList(resource.name, 

@@ -45,7 +45,7 @@ const AsyncResources = () => {
         console.warn(err);
         setResources([]);
       });
-  }, []);
+  }, [dataProvider]);
   const resource_conf = "a";
   if (resources === false) {
     console.log("loading");

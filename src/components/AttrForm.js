@@ -1,3 +1,5 @@
+/* eslint-disable no-eval */
+/* eslint-disable no-throw-literal */
 import React, { useRef, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import DynInput from "./DynInput.js";
@@ -29,7 +31,7 @@ const AttrForm = ({ attributes, ...props }) => {
           attr.show_when &&
           (()=>{
             try {
-              const pattern1 = /record\["[a-zA-Z]+"] (==|!=) \"[a-zA-Z]+"/;
+              const pattern1 = /record\["[a-zA-Z]+"] (==|!=) "[a-zA-Z]+"/;
               const pattern2 = /isInserting (==|!=) (true|false)/;
               const arr = attr.show_when.split(/&&|\|\|/);
               let index = -1;
@@ -46,7 +48,7 @@ const AttrForm = ({ attributes, ...props }) => {
               if (index === -1) {
                 return eval(attr.show_when)
               } else {
-                if (attr.resource.attributes.find((object)=> object.name == arr[index].split(/'|"/)[1])) {
+                if (attr.resource.attributes.find((object)=> object.name === arr[index].split(/'|"/)[1])) {
                   return eval(attr.show_when)
                 } else {
                   throw "invalid attribute name";

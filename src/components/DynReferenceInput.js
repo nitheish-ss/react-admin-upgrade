@@ -1,3 +1,5 @@
+/* eslint-disable no-eval */
+/* eslint-disable no-throw-literal */
 import {
   ReferenceInput,
   AutocompleteInput,
@@ -45,10 +47,12 @@ function QuickCreateButton({ onChange, resource_name, cb_set_id, basePath }) {
   const refresh = useRefresh();
   const resource = conf.resources[resource_name];
   const attributes = resource?.attributes || [];
+  // eslint-disable-next-line no-unused-vars
   const isInserting = true;
   const setRecords = (name, value) => {
     focusRef.current = name;
     recordRef.current = { ...recordRef.current, [name]: value };
+    // eslint-disable-next-line no-unused-vars
     const record = recordRef.current;
     const recordsArray = attributes
       .filter(
@@ -56,7 +60,7 @@ function QuickCreateButton({ onChange, resource_name, cb_set_id, basePath }) {
           attr.show_when &&
           (() => {
             try {
-              const pattern1 = /record\["[a-zA-Z]+"] (==|!=) \"[a-zA-Z]+"/;
+              const pattern1 = /record\["[a-zA-Z]+"] (==|!=) "[a-zA-Z]+"/;
               const pattern2 = /isInserting (==|!=) (true|false)/;
               const arr = attr.show_when.split(/&&|\|\|/);
               let index = -1;
@@ -75,7 +79,7 @@ function QuickCreateButton({ onChange, resource_name, cb_set_id, basePath }) {
               } else {
                 if (
                   attr.resource.attributes.find(
-                    (object) => object.name == arr[index].split(/'|"/)[1]
+                    (object) => object.name === arr[index].split(/'|"/)[1]
                   )
                 ) {
                   return eval(attr.show_when);

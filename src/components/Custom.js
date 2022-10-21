@@ -44,6 +44,7 @@ export const UserPasswordField = (props) => {
 }
 
 export const CustomTab = (props) => {
+    // eslint-disable-next-line no-unused-vars
     const record = useRecordContext();
     return <div>Some Text</div>
 }

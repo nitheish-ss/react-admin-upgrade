@@ -1,6 +1,5 @@
 import React from "react";
 import { useGetOne} from 'react-admin';
-import { useDataProvider } from 'react-admin';
 import { 
     useRecordContext,
     DateField } from 'react-admin';
@@ -74,7 +73,6 @@ const NestedJoinedField = ({resource_name, id}) => {
     // Nested foins no longer have access to the right RecordContext
     // this doesn't work for composite keys :// (because we just pass a single id)
     const conf = useConf();
-    const dataProvider = useDataProvider()
     const user_key = conf.resources[resource_name]?.user_key || "id"
     const { data } = useGetOne(resource_name,{ id: id });
     const modal_content = <RelatedInstance instance={data} resource_name={resource_name}/>
@@ -93,7 +91,6 @@ const JoinedField = ({attribute, pvalue}) => {
     const user_component = target_resource?.user_component
     const fk = join.fks.join('_')
     const id = record ? record[fk] : null
-    const dataProvider = useDataProvider()
     const { data, isLoading} = useGetOne(target_resource.name,{ id: id })
 
     if(!record){

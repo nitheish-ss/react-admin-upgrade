@@ -1,3 +1,5 @@
+/* eslint-disable no-eval */
+/* eslint-disable no-throw-literal */
 import { useRef, useState } from "react";
 import {
   Create,
@@ -37,11 +39,13 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
   const refresh = useRefresh();
   const resource = conf.resources[resource_name];
   const attributes = resource?.attributes || [];
+  // eslint-disable-next-line no-unused-vars
   const isInserting = true;
 
   const setRecords = (name, value) => {
     focusRef.current = name;
     recordRef.current = { ...recordRef.current, [name]: value };
+    // eslint-disable-next-line no-unused-vars
     const record = recordRef.current;
     const recordsArray = attributes
       .filter(
@@ -49,7 +53,7 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
           attr.show_when &&
           (() => {
             try {
-              const pattern1 = /record\["[a-zA-Z]+"] (==|!=) \"[a-zA-Z]+"/;
+              const pattern1 = /record\["[a-zA-Z]+"] (==|!=) "[a-zA-Z]+"/;
               const pattern2 = /isInserting (==|!=) (true|false)/;
               const arr = attr.show_when.split(/&&|\|\|/);
               let index = -1;
@@ -63,12 +67,12 @@ function DynReferenceCreate({ path, resource_name, currentid, currentParent }) {
                   throw "invalid expression";
                 }
               }
-              if (index == -1) {
+              if (index === -1) {
                 return eval(attr.show_when);
               } else {
                 if (
                   attr.resource.attributes.find(
-                    (object) => object.name == arr[index].split(/'|"/)[1]
+                    (object) => object.name === arr[index].split(/'|"/)[1]
                   )
                 ) {
                   return eval(attr.show_when);

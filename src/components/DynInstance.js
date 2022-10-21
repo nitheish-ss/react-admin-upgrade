@@ -1,3 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-eval */
+/* eslint-disable no-throw-literal */
 import { useState, useEffect} from "react";
 import { Datagrid, EditButton, useGetOne, useNotify, useRedirect } from "react-admin";
 
@@ -70,10 +73,11 @@ export const ShowRecordField = ({ source, tabs, path }) => {
   const notify = useNotify();
   const attr_name = source.name;
   let value = record[attr_name];
+  // eslint-disable-next-line no-unused-vars
   const isInserting = false;
   if (source.show_when) {
     try {
-      const pattern1 = /record\["[a-zA-Z]+"] (==|!=) \"[a-zA-Z]+"/;
+      const pattern1 = /record\["[a-zA-Z]+"] (==|!=) "[a-zA-Z]+"/;
       const pattern2 = /isInserting (==|!=) (true|false)/;
       const arr = source.show_when.split(/&&|\|\|/);
       let index = -1;
@@ -135,6 +139,7 @@ const ShowInstance = ({
     </Typography>
   );
 
+  // eslint-disable-next-line array-callback-return
   const tabs = tab_groups?.map((tab) => {
     if (tab.component) {
       const Component = get_Component(tab.component);
@@ -183,7 +188,7 @@ const DynRelationshipOne = (resource_name, id, relationship) => {
   const [loading, setLoading] = useState(true);
   const [rel_error, setRelError] = useState(false);
   const dataProvider = useDataProvider()
-  const { data, isLoading, error } = useGetOne(resource_name,{ id: id });
+  const { data, error } = useGetOne(resource_name,{ id: id });
   const rel_id =
     data && relationship.fks.map((fk) => (data[fk] ? data[fk] : "")).join("_");
   let tab_content = " - ";
@@ -229,7 +234,6 @@ const DynRelationshipOne = (resource_name, id, relationship) => {
       // todo: might be obsolote, tbd
       // todo: fix the data provider so we can simplify this conditional and use <RelatedInstance> instead
       const rel_resource = type2resource(data[relationship.name].data?.type);
-      const rel_id = data[relationship.name]?.data?.id;
       if (!rel_resource) {
         console.warn(
           `Related resource not found ${resource_name}.${relationship.name}`
@@ -294,7 +298,7 @@ const DynRelationshipMany = (resource_name, id, relationship, path) => {
   ); // ignore relationships pointing back to the parent resource
   attributes = relationship.attributes
     ? attributes.filter((attr) =>
-        relationship.attributes.find((r_attr) => r_attr.name == attr.name)
+        relationship.attributes.find((r_attr) => r_attr.name === attr.name)
       )
     : attributes;
 
@@ -343,7 +347,6 @@ export const RelatedInstance = ({ instance }) => {
 
   const resource_conf = conf.resources[resource_name];
   const attributes = resource_conf?.attributes || [];
-  const relationships = resource_conf?.relationships || [];
 
   // ugly manual styling because adding to TabbedShowLayout didn't work
   const result = (

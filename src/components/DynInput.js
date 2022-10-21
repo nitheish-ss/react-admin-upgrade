@@ -24,6 +24,7 @@ const DynInput = ({
   useEffect(()=>{
     if(attribute.show_when){
     setRecords(attribute,"" )}
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
   const label = attribute.label || attribute.name;
   const input_props = {
