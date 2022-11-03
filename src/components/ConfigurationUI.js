@@ -126,6 +126,7 @@ export const LoadYaml = (config_url, notify) => {
   fetch(config_url, { cache: "no-store" })
     .then((response) => response.text())
     .then((conf_str) => {
+      localStorage.setItem('conf_cache1',conf_str)
       saveConf(conf_str);
       notify("Loaded configuration");
     })
@@ -342,6 +343,19 @@ const ConfigurationUI = () => {
     }
     setTaConf(text);
   };
+
+
+
+  fetch(als_yaml_url, { cache: "no-store" })
+  .then((response) => response.text())
+  .then((conf_str) => {
+    if(localStorage.getItem('conf_cache1') !== conf_str){
+      resetConf(()=>{})
+    }
+  })
+  .catch((err) => {
+    console.log(err)
+  });
 
   let conf = localStorage.getItem("raconf") || JSON.stringify(resetConf());
   const [taConf, setTaConf] = useState(

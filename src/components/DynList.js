@@ -38,7 +38,7 @@ const deleteField = (dataProvider, resource, record, refresh) => {
         resource: name of the resource
     */
   dataProvider
-    .delete(resource, record)
+    .delete(resource.type, record)
     .then(() => refresh())
     .catch((e) => alert("error"));
 };
