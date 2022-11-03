@@ -101,6 +101,7 @@ const AsyncResources = () => {
 };
 
 const App = () => {
+  ConfigurationUI();
   const conf = useConf();
   const dataProvider = jsonapiClient(conf.api_root, {});
   const queryClient = new QueryClient({
