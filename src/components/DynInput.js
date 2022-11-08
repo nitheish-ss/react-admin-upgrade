@@ -4,6 +4,7 @@ import {
   NumberInput,
   PasswordInput,
   required,
+  BooleanInput,
 } from "react-admin";
 import { useState, memo, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
@@ -107,6 +108,22 @@ const DynInput = ({
           fullWidth={false}
           {...input_props}
           autoFocus={attribute.name === myfocusRef}
+          />
+      </GridWrap>
+    );
+  }
+  
+  if(attr_type === "boolean") {
+    result = (
+      <GridWrap>
+         <BooleanInput 
+            onChange={(e) => {
+              dynamicRender(attribute.name, e.target.value);
+            }}
+            defaultValue={false}
+            source={attribute.name}
+            {...input_props}
+            autoFocus={attribute.name === myfocusRef}
           />
       </GridWrap>
     );

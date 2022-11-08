@@ -16,6 +16,8 @@ import { load_custom_component } from '../util';
 import { RelatedInstance } from "./DynInstance";
 import loadable from '@loadable/component'
 import {InfoPopover} from '../util'
+import CheckIcon from '@mui/icons-material/Check';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const useStyles = makeStyles({
     join_attr: {color: '#3f51b5;'},
@@ -224,17 +226,31 @@ const ShowField = ({ label, value, attr, mode, ...props }) => {
         shown = <>{value.slice(0, trunc_size)}<br/><Button outlined color="primary" onClick={()=>setFullText(value)}>More...</Button></>
         component = "pre"
     }
+    const result = () => {
+        if(shown === true || shown === false){
+            return (
+
+                <Grid item xs={3}>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                        {label}
+                    </Typography>
+                    {shown?<CheckIcon/>:<ClearIcon/>}
+                </Grid>
+            )
+        }
+        return (      
+        <Grid item xs={3}>
+            <Typography variant="body2" color="textSecondary" component="p">
+                {label}
+            </Typography>
+            <Typography variant="body2" component={component} style={style}>
+                {full_text || shown}
+            </Typography>
+        </Grid>
+      )
+    }
     
-    return (
-      <Grid item xs={3}>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {label}
-        </Typography>
-        <Typography variant="body2" component={component} style={style}>
-          {full_text || shown}
-        </Typography>
-      </Grid>
-    )
+    return (<>{result()}</>)
 };
 
 
