@@ -8,6 +8,18 @@ import {getConf} from '../Config'
 const conf : { [ key: string] : any } = getConf();
 const duration = 2000;
 
+const handleConvertBase64 = (file: any) => {
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file)
+    fileReader.onload = () => {
+      resolve(fileReader.result);
+    }
+    fileReader.onerror = (error) => {
+      reject(error);
+    }
+  })
+}
 const prepareAttributes = (attributes : any, resource_en : any) => {
     const resource = decodeURI(resource_en)
     // temp: convert all numbers to string to allow FK lookups (jsonapi ids are strings, while FKs may be numbers :////)
@@ -286,42 +298,70 @@ export const jsonapiClient = (
       });
     },
 
-    update: (resource_name_en : string, params: any) => {
+    update: async(resource_name_en : string, params: any) => {
+      console.log(params)
       const resource_name = decodeURI(resource_name_en)
       let type = conf["resources"][resource_name].type || resource_name;
-      /*const arr = settings.endpointToTypeStripLastLetters;
-      for (const i in arr) {
-        if (resource_name.endsWith(arr[i])) {
-          type = resource_name.slice(0, arr[i].length * -1);
-          break; // quit after first hit
-        }
-      }*/
-      const data = {
-        data: {
-          id: params.id,
-          type: type,
-          attributes: params.data
-        }
-      };
-
-      return httpClient(`${apiUrl}/${resource_name}/${params.id}`, {
-        method: settings.updateMethod,
-        body: JSON.stringify(data)
-      })
-        .then(({ json }) => {
-          const { id, attributes } = json.data;
-          return {
-            data: {
-              id,
-              ...attributes
-            }
-          };
+      if(params?.data?.photo[1]?.rawFile){
+        const file = params.data.photo[1].rawFile
+        const base64 :any = await handleConvertBase64(file)
+        const base64str = await base64.toString()
+        const newparams = await {...params.data,photo: base64str}
+        const data = {
+          data: {
+            id:  params.id,
+            type: type,
+            attributes: await newparams
+          }
+        };
+        return httpClient(`${apiUrl}/${resource_name}/${params.id}`, {
+          method: settings.updateMethod,
+          body: JSON.stringify(data)
         })
-        .catch((err: HttpError) => {
-          console.log('catch Error', err.body);
-          const errorHandler = settings.errorHandler;
-          return Promise.reject(errorHandler(err));
-        });
+          .then(({ json }) => {
+            const { id, attributes } = json.data;
+            return {
+              data: {
+                id,
+                ...attributes
+              }
+            };
+          })
+          .catch((err: HttpError) => {
+            console.log('catch Error', err.body);
+            const errorHandler = settings.errorHandler;
+            return Promise.reject(errorHandler(err));
+          });
+      }
+      else{
+        const data = {
+          data: {
+            id:  params.id,
+            type: type,
+            attributes:  params.data
+          }
+        };
+  
+        return httpClient(`${apiUrl}/${resource_name}/${params.id}`, {
+          method: settings.updateMethod,
+          body: JSON.stringify(data)
+        })
+          .then(({ json }) => {
+            const { id, attributes } = json.data;
+            return {
+              data: {
+                id,
+                ...attributes
+              }
+            };
+          })
+          .catch((err: HttpError) => {
+            console.log('catch Error', err.body);
+            const errorHandler = settings.errorHandler;
+            return Promise.reject(errorHandler(err));
+          });
+      }
+      
     },
 
     // simple-rest doesn't handle provide an updateMany route, so we fallback to calling update n times instead

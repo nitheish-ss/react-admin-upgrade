@@ -5,6 +5,8 @@ import {
   PasswordInput,
   required,
   BooleanInput,
+  ImageInput,
+  ImageField,
 } from "react-admin";
 import { useState, memo, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
@@ -125,6 +127,16 @@ const DynInput = ({
             {...input_props}
             autoFocus={attribute.name === myfocusRef}
           />
+      </GridWrap>
+    );
+  }
+
+  if(attr_type === "image"){
+    result = (
+      <GridWrap>
+        <ImageInput source={label}  multiple="false" placeholder={<p>Drop / Click to Select your file here</p>} >
+          <ImageField source="src" title="title" />
+        </ImageInput>
       </GridWrap>
     );
   }
