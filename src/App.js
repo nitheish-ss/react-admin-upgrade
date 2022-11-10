@@ -108,7 +108,6 @@ const App = () => {
     defaultOptions: {
       queries: {
         retry: false,
-        staleTime:300000,
         refetchOnWindowFocus: false
       },
     },
