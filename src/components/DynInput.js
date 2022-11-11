@@ -5,8 +5,6 @@ import {
   PasswordInput,
   required,
   BooleanInput,
-  ImageInput,
-  ImageField,
 } from "react-admin";
 import { useState, memo, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
@@ -130,17 +128,7 @@ const DynInput = ({
       </GridWrap>
     );
   }
-
-  if(attr_type === "image"){
-    result = (
-      <GridWrap>
-        <ImageInput source={label}  multiple="false" placeholder={<p>Drop / Click to Select your file here</p>} >
-          <ImageField source="src" title="title" />
-        </ImageInput>
-      </GridWrap>
-    );
-  }
-
+  
   if (
     attribute.relationship?.direction === "toone" &&
     attribute.relationship.target
