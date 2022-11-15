@@ -66,7 +66,7 @@ export const DetailPanel = ({ attributes, path }) => {
   );
 };
 
-export const ShowRecordField = ({ source, tabs, path }) => {
+export const ShowRecordField = ({ source, tabs, path, id }) => {
   const record = useRecordContext();
   const refresh = useRefresh();
   const redirect = useRedirect();
@@ -120,7 +120,7 @@ export const ShowRecordField = ({ source, tabs, path }) => {
     const Component = get_Component(source.component);
     return <Component attr={source} value={value} mode="show" />;
   }
-  return <ShowAttrField attr={source} value={value} />;
+  return <ShowAttrField attr={source} value={value} id={id} />;
 };
 
 const ShowInstance = ({
@@ -168,6 +168,7 @@ const ShowInstance = ({
             source={attr}
             tabs={tabs}
             path={basePath}
+            id={id}
           />
         ))}
       </Grid>
