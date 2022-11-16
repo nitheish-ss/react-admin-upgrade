@@ -272,7 +272,7 @@ const ShowField = ({ label, value, attr, mode, id, ...props }) => {
     component = "pre";
   }
   const result = () => {
-    if (attr?.type === "Boolean") {
+    if (attr?.type.toLowerCase() === "boolean") {
       return (
         <Grid item xs={3}>
           <Typography variant="body2" color="textSecondary" component="p">
@@ -283,17 +283,27 @@ const ShowField = ({ label, value, attr, mode, id, ...props }) => {
       );
     }
 
-    if (attr?.type === "Image") {
-      let image_url = `/ui/images/${attr?.resource?.type}/${id}.jpg`;
-      if (window.location.href.includes(":3000")) {
-        image_url = `http://localhost:5656/ui/images/${attr?.resource?.type}/${id}.jpg`;
+    if (attr?.type.toLowerCase() === "image") {
+      const arr = (full_text || shown).split("/");
+      const index = arr.findIndex((e) => (e === "http:" || e === "https:"));
+      let image_url;
+      if (index === -1) {  
+        image_url = `http://localhost:5656/ui/images/${full_text || shown}`
+      } else {
+        image_url = full_text||shown;
+
       }
       return (
         <Grid item xs={3}>
-            <img
-              src={image_url}
-              alt={attr?.resource?.type}
-            />
+          <Typography variant="body2" color="textSecondary" component="p">
+            {label}
+          </Typography>
+          <img
+            src={image_url}
+            alt={attr?.resource?.type}
+            width="100"
+            height="100"
+          />
         </Grid>
       );
     }
