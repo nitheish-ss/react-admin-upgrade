@@ -272,7 +272,7 @@ const ShowField = ({ label, value, attr, mode, id, ...props }) => {
     component = "pre";
   }
   const result = () => {
-    if (attr?.type.toLowerCase() === "boolean") {
+    if (attr?.type === "Boolean") {
       return (
         <Grid item xs={3}>
           <Typography variant="body2" color="textSecondary" component="p">
@@ -283,7 +283,7 @@ const ShowField = ({ label, value, attr, mode, id, ...props }) => {
       );
     }
 
-    if (attr?.type.toLowerCase() === "image") {
+    if (attr?.type=== "Image") {
       const arr = (full_text || shown).split("/");
       const index = arr.findIndex((e) => (e === "http:" || e === "https:"));
       let image_url;
