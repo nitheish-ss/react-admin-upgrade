@@ -34,6 +34,7 @@ import InfoModal from "./InfoModal.js";
 import get_Component from "../get_Component.js";
 import BlockIcon from "@mui/icons-material/Block";
 import DynReferenceCreate from "./DynReferenceCreate.js";
+import {useInfoToggle} from '../InfoToggleContext'
 
 const useStyles = makeStyles({
   join_attr: { color: "#3f51b5" },
@@ -395,9 +396,10 @@ export const RelatedInstance = ({ instance }) => {
 };
 
 const ShowActions = ({ basePath, data, resource }) => {
+  const [infoToggle,] = useInfoToggle()
   return (
     <TopToolbar>
-      <InfoModal resource={resource} mode="show" />
+      {infoToggle?<InfoModal resource={resource} mode="show" />:<></>}
       <EditButton basePath={basePath} record={data} />
     </TopToolbar>
   );

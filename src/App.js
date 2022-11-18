@@ -22,6 +22,7 @@ import LoginPage from "./pages/LoginPage";
 import gen_DynResourceList from "./components/DynList";
 import { gen_DynResourceShow } from "./components/DynInstance";
 import { gen_DynResourceEdit } from "./components/DynResourceEdit";
+import { InfoToggleProvider } from "./InfoToggleContext";
 
 const messages = {
   'en': englishMessages,
@@ -113,15 +114,17 @@ const App = () => {
     },
   });
   return (
+  <InfoToggleProvider> 
     <AdminContext
       dataProvider={dataProvider}
       authProvider={authProvider}
       queryClient={queryClient}
       locale="en"
       i18nProvider={i18nProvider}
-    >
+    >      
       <AsyncResources />
     </AdminContext>
+    </InfoToggleProvider> 
   );
 };
 

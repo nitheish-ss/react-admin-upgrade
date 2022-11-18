@@ -25,6 +25,8 @@ import {
 } from "react-admin";
 import InfoModal from "./InfoModal.js";
 import get_Component from "../get_Component.js";
+import {useInfoToggle} from '../InfoToggleContext'
+
 
 const useStyles = makeStyles({
   icon: { color: "#ccc", "&:hover": { color: "#3f51b5" } },
@@ -83,10 +85,11 @@ const DeleteButton = (props) => {
 };
 
 const ListActions = ({ resource }) => {
+  const [infoToggle,] = useInfoToggle()
   return (
     <TopToolbar>
       <FilterButton />
-      <InfoModal resource={resource} mode="list" />
+      {infoToggle?<InfoModal resource={resource} mode="list" />:<></>}
       <CreateButton label="ra.action.create" />
       <ExportButton label="ra.action.export" />
     </TopToolbar>

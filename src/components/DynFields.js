@@ -300,7 +300,7 @@ const ShowField = ({ label, value, attr, mode, id, ...props }) => {
           </Typography>
           <img
             src={image_url}
-            alt={attr?.resource?.type}
+            alt={""}
             width="100"
             height="100"
           />
