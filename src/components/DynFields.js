@@ -284,6 +284,10 @@ const ShowField = ({ label, value, attr, mode, id, ...props }) => {
     }
 
     if (attr?.type=== "Image") {
+      console.log(shown)
+      if(shown === null || shown.trim() === "" ){
+        return <></>
+      }
       const arr = (full_text || shown).split("/");
       const index = arr.findIndex((e) => (e === "http:" || e === "https:"));
       let image_url;
