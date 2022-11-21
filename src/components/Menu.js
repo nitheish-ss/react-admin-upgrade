@@ -58,7 +58,7 @@ const InfoMenuModal = () => {
         >
           <Box sx={style} className={classes.info_modal}>
             <Typography id="modal-modal-description"  sx={{ mt: 3 }}>
-                <div style={{display:"flex",alignItems:"center", justifyContent:"center"}}>Toggle to On/Off to Enable/Disable info Button.</div>
+                <div style={{display:"flex",alignItems:"center", justifyContent:"center"}}>Toggle to On/Off to Enable/Disable application tour info.</div>
             </Typography>
           </Box>
         </Modal>
