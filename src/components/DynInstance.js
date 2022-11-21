@@ -395,13 +395,29 @@ export const RelatedInstance = ({ instance }) => {
   return result;
 };
 
-const ShowActions = ({ basePath, data, resource }) => {
+const ShowInfoContent = (props) => {
   const [infoToggle,] = useInfoToggle()
+  const content = props.resource[`info_show`]
   return (
+    <>
+    {infoToggle?<div>
+    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+    <div id="info_content" dangerouslySetInnerHTML={{ __html: content}} />
+    </Typography>
+    </div>:<></>}
+    </>
+  )
+}
+
+const ShowActions = ({ basePath, data, resource }) => {
+  return (
+    <>
+    <ShowInfoContent resource={resource}/>
     <TopToolbar>
-      {infoToggle?<InfoModal resource={resource} mode="show" />:<></>}
+      <InfoModal resource={resource} mode="show" />
       <EditButton basePath={basePath} record={data} />
     </TopToolbar>
+    </>
   );
 };
 

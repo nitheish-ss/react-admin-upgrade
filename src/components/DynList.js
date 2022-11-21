@@ -26,6 +26,7 @@ import {
 import InfoModal from "./InfoModal.js";
 import get_Component from "../get_Component.js";
 import {useInfoToggle} from '../InfoToggleContext'
+import { Typography } from "@mui/material";
 
 
 const useStyles = makeStyles({
@@ -84,12 +85,25 @@ const DeleteButton = (props) => {
   );
 };
 
-const ListActions = ({ resource }) => {
+const ShowInfoContent = (props) => {
   const [infoToggle,] = useInfoToggle()
+  const content = props.resource[`info_list`]
   return (
+    <>
+    {infoToggle?<div>
+    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+    <div id="info_content" dangerouslySetInnerHTML={{ __html: content}} />
+    </Typography>
+    </div>:<></>}
+    </>
+  )
+}
+
+const ListActions = ({ resource }) => {
+  return (  
     <TopToolbar>
       <FilterButton />
-      {infoToggle?<InfoModal resource={resource} mode="list" />:<></>}
+      <InfoModal resource={resource} mode="list" />
       <CreateButton label="ra.action.create" />
       <ExportButton label="ra.action.export" />
     </TopToolbar>
@@ -135,6 +149,8 @@ const gen_DynResourceList = (resource_conf) => (props) => {
 
   document.title = resource_conf.label || resource_conf.name;
   let list = (
+    <>
+    <ShowInfoContent resource={resource_conf}/>
     <List
       actions={<ListActions resource={resource_conf} />}
       filters={searchFilters}
@@ -152,6 +168,7 @@ const gen_DynResourceList = (resource_conf) => (props) => {
         <ButtonField resource={resource_conf} {...props} />
       </Datagrid>
     </List>
+    </>
   );
 
   if (resource_conf.components?.list) {
