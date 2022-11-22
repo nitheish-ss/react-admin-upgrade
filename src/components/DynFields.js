@@ -292,10 +292,9 @@ const ShowField = ({ label, value, attr, mode, id, ...props }) => {
       const index = arr.findIndex((e) => (e === "http:" || e === "https:"));
       let image_url;
       if (index === -1) {  
-        image_url = `http://localhost:5656/ui/images/${full_text || shown}`
+        image_url = `${(JSON.parse(localStorage.getItem("raconf")).api_root).slice(0, -4)}/ui/images/${full_text || shown}`
       } else {
         image_url = full_text||shown;
-
       }
       return (
         <Grid item xs={3}>
